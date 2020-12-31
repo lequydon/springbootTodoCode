@@ -4,18 +4,50 @@
 <head>
 <meta charset="UTF-8" />
 <title>Index Page</title>
-<link href="../static/css/style.css" th:href="@{/css/style.css}"
-	rel="stylesheet" />
+<!-- <link href="../static/css/style.css" th:href="@{/css/style.css}"
+	rel="stylesheet" /> -->
+	<link
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+	rel="stylesheet" media="screen" />
 </head>
 <body>
-	<!-- <a th:href='/logout'>Logout</a> -->
-	Logged user:
-	<span sec:authentication="name"></span>
-	<br /> Roles:
-	<span sec:authentication="principal.authorities"></span>
-	<!-- <form action="#" th:action="@{/logout}" method="POST">
-		<button type="submit">Logout</button>
-	</form> -->
-	<a href="#" th:href="@{/logout}">Log Out</a>
+	<th:block th:include="/_base"></th:block>
+<section class="container">
+	<table class="table table-striped">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">First</th>
+      <th scope="col">Last</th>
+      <th scope="col">Handle</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th scope="row">1</th>
+      <td>Mark</td>
+      <td>Otto</td>
+      <td>@mdo</td>
+    </tr>
+    <tr>
+      <th scope="row">2</th>
+      <td>Jacob</td>
+      <td>Thornton</td>
+      <td>@fat</td>
+    </tr>
+    <tr>
+      <th scope="row">3</th>
+      <td>Larry</td>
+      <td>the Bird</td>
+      <td>@twitter</td>
+    </tr>
+  </tbody>
+</table>
+</section>
 </body>
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
 </html>
