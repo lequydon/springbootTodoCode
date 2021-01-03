@@ -53,6 +53,7 @@ public class DataSeedingListener {
 			if (roleRepository.findByName("ROLE_MEMBER") == null) {
 				roleRepository.save(new Role("ROLE_MEMBER"));
 			}
+			User user1=userRepository.findByEmail("admin@gmail.com");
 			// Admin account
 	        if (userRepository.findByEmail("admin@gmail.com") == null) {
 	            User admin = new User();

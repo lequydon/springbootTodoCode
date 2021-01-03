@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<head>
+<meta charset="UTF-8" />
+<title>Index Page</title>
+<!-- <link href="../static/css/style.css" th:href="@{/css/style.css}"
+	rel="stylesheet" /> -->
+<link
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+	rel="stylesheet" media="screen" />
+</head>
+<body>
+	<th:block th:include="/_base"></th:block>
+	<section class="container">
+		<article style="margin: 5px">
+			<a class="btn btn-primary" href="#">Add</a>
+		</article>
+		<table class="table table-striped">
+			<thead>
+				<tr>
+					<th scope="col">#</th>
+					<th scope="col">Content</th>
+					<th scope="col">Deadline</th>
+					<th scope="col">Status</th>
+					<th scope="col">Active</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="todo : ${listTodo}">
+					<th scope="row">1</th>
+					<td th:text="${todo.content}"></td>
+					<td th:text="${todo.dealine}"></td>
+					<td th:text="${todo.status.nameStatus}"></td>
+					<td><a class="btn btn-danger" href="#" style="margin-right: 2px">Delete</a><a href="#" class="btn btn-success">Edit</a></td>
+				</tr>
+			</tbody>
+		</table>
+	</section>
+</body>
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+</html>
