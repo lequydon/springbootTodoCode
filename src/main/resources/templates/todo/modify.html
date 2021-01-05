@@ -6,28 +6,60 @@
 <title>Modify Page</title>
 <!-- <link href="../static/css/style.css" th:href="@{/css/style.css}"
 	rel="stylesheet" /> -->
-	<link
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
-	rel="stylesheet" media="screen" />
+<link rel="stylesheet" type="text/css"
+	href="//cdn.jsdelivr.net/npm/datetimepicker@latest/dist/DateTimePicker.min.css" />
+<link href="../style/modifyTodo.css" rel="stylesheet" />
 </head>
 <body>
 	<th:block th:include="/_base"></th:block>
-<section class="container">
-		<form th:action="@{/login}" method="POST">
+	<section class="container">
+		<form th:action="@{/modify}" method="POST">
+			<input style="display:none" type="text" name="id" th:value="${todo.id}" />
 			<div class="form-group">
-				<input type="text" name="email" class="form-control" placeholder="Your email" />
+				<label>Content</label> <input type="text" name="content"
+					th:value="${todo.content}" class="form-control" />
 			</div>
 			<div class="form-group">
-			<input type="password" name="password" class="form-control" placeholder="Your password" />
+				<label>Deadline</label>
+				<th:block th:if="${checkData == 0}">
+				<input type="text" name="deadline" data-field="datetime"
+					class="form-control" />
+				</th:block>
+				<th:block th:unless="${checkData == 0}">
+				<input type="text" name="deadline" data-field="datetime"
+					th:value="${#dates.format(todo.dealine, 'dd-MM-yyyy HH:mm')}"
+					class="form-control" />
+				</th:block>
+				<div id="dtBox"></div>
 			</div>
-			<button type="submit" class="btn btn-primary">Login</button>
+			<div class="form-group">
+				<label>Status</label>
+				<div></div>
+				<select name="statusId" class="form-control">
+					<option>---</option>
+					<th:block th:if="${checkData == 0}">
+						<option th:each="i : ${listStatus}" th:value="${i.id}"
+							th:text="${i.nameStatus}"></option>
+					</th:block>
+					<th:block th:unless="${checkData == 0}">
+						<option th:each="i : ${listStatus}" th:value="${i.id}"
+							th:text="${i.nameStatus}" th:selected="${i.id==todo.status.id}"></option>
+					</th:block>
+				</select>
+			</div>
+			<button type="submit" style="float: right" class="btn btn-primary">Submit</button>
 			<br />
 		</form>
-</section>
+	</section>
 </body>
-<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+<script>
+	$(function() {
+		$("#dtBox").DateTimePicker();
+	});
+</script>
 <script
-	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
-<script
-	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+	src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/momentjs/2.14.1/moment.min.js"></script>
+<script type="text/javascript"
+	src="//cdn.jsdelivr.net/npm/datetimepicker@latest/dist/DateTimePicker.min.js"></script>
 </html>

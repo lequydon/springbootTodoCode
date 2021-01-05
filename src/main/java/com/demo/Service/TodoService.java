@@ -23,5 +23,11 @@ public class TodoService implements ITodoService {
 		List<Todo> listTodo =todoResRepository.findAllByUser(user);
 		return listTodo;
 	}
+	@Override
+	public Todo getTodo(int id) {
+		// TODO Auto-generated method stub
+		Todo todo=todoResRepository.findOne(id);
+		return todo;
+	}
 
 }
