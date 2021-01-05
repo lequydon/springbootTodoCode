@@ -13,7 +13,7 @@
 <body>
 	<th:block th:include="/_base"></th:block>
 	<section class="container">
-		<form th:action="@{/modify}" method="POST">
+		<form th:action="@{/modify}" method="post" th:object="${todo}">
 			<input style="display:none" type="text" name="id" th:value="${todo.id}" />
 			<div class="form-group">
 				<label>Content</label> <input type="text" name="content"
@@ -22,11 +22,11 @@
 			<div class="form-group">
 				<label>Deadline</label>
 				<th:block th:if="${checkData == 0}">
-				<input type="text" name="deadline" data-field="datetime"
+				<input type="text" name="deadlineString" data-field="datetime"
 					class="form-control" />
 				</th:block>
 				<th:block th:unless="${checkData == 0}">
-				<input type="text" name="deadline" data-field="datetime"
+				<input type="text" name="deadlineString"  data-field="datetime"
 					th:value="${#dates.format(todo.dealine, 'dd-MM-yyyy HH:mm')}"
 					class="form-control" />
 				</th:block>
@@ -47,7 +47,8 @@
 					</th:block>
 				</select>
 			</div>
-			<button type="submit" style="float: right" class="btn btn-primary">Submit</button>
+			<input type="submit" style="float: right;margin-left: 5px" class="btn btn-primary" value="Submit"/>
+			<a href="/" style="float:right" class="btn btn-danger">Back</a>
 			<br />
 		</form>
 	</section>

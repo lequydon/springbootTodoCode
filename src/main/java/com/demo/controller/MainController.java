@@ -7,6 +7,7 @@ import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
 
 import org.apache.catalina.authenticator.SpnegoAuthenticator.AuthenticateAction;
 import org.apache.tomcat.util.net.openssl.ciphers.Authentication;
@@ -20,9 +21,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.demo.Service.StatusService;
 import com.demo.Service.TodoService;
+import com.demo.Service.UserService;
 import com.demo.Service.Interface.ITodoService;
 import com.demo.dto.TodoDTO;
 import com.demo.dto.TodoFormDTO;
+import com.demo.entity.Status;
 import com.demo.entity.Todo;
 import com.demo.entity.User;
 import com.demo.repository.UserRepository;
@@ -37,6 +40,7 @@ public class MainController {
 	TodoService todoService;
 	@Autowired
 	StatusService statusService;
+	
 	 	@GetMapping("/")
 	    public String index(Principal principal,Model model) {
 //	 		TodoService todoService=new TodoService();
@@ -79,11 +83,18 @@ public class MainController {
 	    	model.addAttribute("listStatus",statusService.getListStatus());
 	        return "todo/modify";
 	    }
-	    @PostMapping("/modify") 
-	    public String postModify(Model model,TodoFormDTO todoDTO) {
-	    	System.out.print("okkkkkkkkkkkkkkkkkkkkkkkkkkkkk");
-	    	System.out.print(todoDTO);
-	        return "todo/modify";
+	    @PostMapping(value="/modify",produces = "application/json;charset=UTF-8") 
+	    public String postModify(HttpServletRequest request, @Valid @ModelAttribute("todo") TodoDTO todoDTO, BindingResult bindingResult,Principal principal) {
+	    	todoDTO.setEmail(principal.getName());
+	    	System.out.print(todoDTO.getContent()); 
+	    	if(todoDTO.getId()==0){
+
+	    		todoService.addTodo(todoDTO);
+	    	}
+	    	else {
+	    		todoService.updateTodo(todoDTO);
+	    	}
+	    	 return "redirect:/";
 	    }
 //	    @GetMapping("/logout")
 //	    public String logout(HttpServletRequest request, HttpServletResponse response) {

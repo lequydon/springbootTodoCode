@@ -13,11 +13,18 @@ import com.demo.repository.StatusRepository;
 public class StatusService implements IStatusService {
 	@Autowired
 	StatusRepository statusRepository;
+	
 	@Override
 	public List<Status> getListStatus() {
 		// TODO Auto-generated method stub
 		List<Status> listStatus =statusRepository.findAll();
 		return listStatus;
+	}
+	@Override
+	public Status getStatus(int id) {
+		// TODO Auto-generated method stub
+		Status status=statusRepository.findOne(id);
+		return status;
 	}
 
 }

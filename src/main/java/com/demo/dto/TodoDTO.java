@@ -10,16 +10,33 @@ private String content;
 private int statusId;
 private int id;
 private Date  deadline;
+private String  deadlineString;
 private String statusName;
+private String email;
+
+public String getDeadlineString() {
+	return deadlineString;
+}
+public void setDeadlineString(String deadlineString) {
+	this.deadlineString = deadlineString;
+}
+public String getEmail() {
+	return email;
+}
+public void setEmail(String email) {
+	this.email = email;
+}
 public TodoDTO() {
 }
-public TodoDTO(int rowNum, String content, int statusId, int id, Date deadline, String statusName) {
+public TodoDTO(int rowNum, String content, int statusId, int id, Date deadline, String statusName,String email,String deadlineString) {
 	this.rowNum = rowNum;
 	this.content = content;
 	this.statusId = statusId;
 	this.id = id;
 	this.deadline = deadline;
 	this.statusName = statusName;
+	this.email=email;
+	this.deadlineString=deadlineString;
 }
 public String getStatusName() {
 	return statusName;
