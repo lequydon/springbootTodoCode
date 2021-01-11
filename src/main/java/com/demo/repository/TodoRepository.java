@@ -9,4 +9,6 @@ import com.demo.entity.User;
 
 public interface TodoRepository extends CrudRepository<Todo, Integer> {
  List<Todo> findAllByUser(User user);
+ List<Todo> findByUserOrderByContentAsc(User user);
+ List<Todo> findByUserOrderByContentDesc(User user);
 }

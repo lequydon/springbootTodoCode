@@ -13,14 +13,16 @@
 <body>
 	<th:block th:include="/_base"></th:block>
 	<section class="container">
+	<form th:action="@{/delete}" method="post">
 		<article style="margin: 5px">
 			<a class="btn btn-primary" href="/modify?id=0">Add</a>
+			<input type="submit" onclick="return confirm('Are you sure you want to delete?');" class="btn btn-danger" value="Delete"/>
 		</article>
 		<table class="table table-striped">
 			<thead>
 				<tr>
-					<th scope="col">#</th>
-					<th scope="col">Content</th>
+					<th scope="col"><input type="checkbox" class="checkbox-all"/></th>
+					<th scope="col">Content<a href="/?Sort=1"><i style="margin-left: 3px" th:class="${session.sortIcon}"></i></a></th>
 					<th scope="col">Deadline</th>
 					<th scope="col">Status</th>
 					<th scope="col">Active</th>
@@ -28,19 +30,22 @@
 			</thead>
 			<tbody>
 				<tr th:each="todo : ${listTodo}">
-					<th scope="row">1</th>
+					<th scope="row"><input type="checkbox" class="checkbox" name="checkbox" th:value="${todo.id}"/></th>
 					<td th:text="${todo.content}"></td>
 					<td th:text="${todo.dealine}"></td>
 					<td th:text="${todo.status.nameStatus}"></td>
-					<td><a class="btn btn-danger" href="#" style="margin-right: 2px">Delete</a><a th:href="@{'/modify?id=' + ${todo.id}}" class="btn btn-success">Edit</a></td>
+					<td><a class="btn btn-danger" onclick="return confirm('Are you sure you want to delete?');" th:href="@{'/delete/?id=' + ${todo.id}}" style="margin-right: 2px">Delete</a><a th:href="@{'/modify?id=' + ${todo.id}}" class="btn btn-success">Edit</a></td>
 				</tr>
 			</tbody>
 		</table>
+		</form>
 	</section>
 </body>
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
 <script
 	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+	<script
+	src="../script/index.js"></script>
 <!-- <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script> -->
 </html>

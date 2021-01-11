@@ -2,6 +2,7 @@ package com.demo.Service;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -26,11 +27,27 @@ public class TodoService implements ITodoService {
 	@Autowired
 	private StatusRepository statusRepository;
 	@Override
-	public List<Todo> getListTodo(String email) {
+	public List<Todo> getListTodo(String email,String sort) {
 		// TODO Auto-generated method stub
 		User user= userRepository.findByEmail(email);
-		List<Todo> listTodo =todoResRepository.findAllByUser(user);
-		return listTodo;
+		List<Todo> listTodo=new ArrayList<Todo>();
+		if(sort.equals("")) {
+			listTodo =todoResRepository.findAllByUser(user);	
+		}
+		if(sort.equals("asc")) {
+			listTodo =todoResRepository.findByUserOrderByContentAsc(user);	
+		}
+		if(sort.equals("desc")) {
+			listTodo =todoResRepository.findByUserOrderByContentDesc(user);	
+		}
+		List<Todo> listTodoDelete =new ArrayList<Todo>();
+		for(Todo i:listTodo) {
+			if(i.getDeleted()==0) {
+				listTodoDelete.add(i);
+			}
+		}
+		System.out.print(listTodoDelete);
+		return listTodoDelete;
 	}
 	@Override
 	public Todo getTodo(int id) {
@@ -76,6 +93,14 @@ public class TodoService implements ITodoService {
 		todo.setDeleted(0);
 		User user=userRepository.findByEmail(todoDTO.getEmail());
 		todo.setUser(user);
+		todoResRepository.save(todo);
+		return todo;
+	}
+	@Override
+	public Todo deleteTodo(int id) {
+		// TODO Auto-generated method stub
+		Todo todo=todoResRepository.findOne(id);
+		todo.setDeleted(1);
 		todoResRepository.save(todo);
 		return todo;
 	}
