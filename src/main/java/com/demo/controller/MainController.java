@@ -55,7 +55,7 @@ public class MainController {
 		String email = principal.getName();
 		List<Todo> listTodo = new ArrayList<Todo>();
 		model.addAttribute("listTodo", listTodo);
-		if (session.getAttribute("sortIcon") == null) {
+		if (session.getAttribute("sortIcon") == null||sort==0) {
 			session.setAttribute("sortIcon", "fas fa-sort");
 			listTodo = todoService.getListTodo(email,"");
 			System.out.print(listTodo);

@@ -7,6 +7,9 @@ import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import com.demo.Service.Interface.ITodoService;
@@ -15,6 +18,7 @@ import com.demo.entity.Status;
 import com.demo.entity.Todo;
 import com.demo.entity.User;
 import com.demo.repository.StatusRepository;
+import com.demo.repository.TodoPagingRepository;
 import com.demo.repository.TodoRepository;
 import com.demo.repository.UserRepository;
 import com.demo.Service.UserService;
@@ -22,6 +26,8 @@ import com.demo.Service.UserService;
 public class TodoService implements ITodoService {
 	@Autowired
 	private TodoRepository todoResRepository;
+	@Autowired
+	private TodoPagingRepository todoPagingRepository;
 	@Autowired
 	private UserRepository userRepository;
 	@Autowired
@@ -33,6 +39,8 @@ public class TodoService implements ITodoService {
 		List<Todo> listTodo=new ArrayList<Todo>();
 		if(sort.equals("")) {
 			listTodo =todoResRepository.findAllByUser(user);	
+	        //Pageable paging = PageRequest.of(pageNo, pageSize, Sort.by("content")); 
+	        //Page<Todo> pagedResult = repository.findAll(paging);
 		}
 		if(sort.equals("asc")) {
 			listTodo =todoResRepository.findByUserOrderByContentAsc(user);	
